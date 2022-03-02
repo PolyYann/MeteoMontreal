@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="../bootstrap/bootstrap-colors-themes.css">
+        <link rel="stylesheet" href="../bootstrap/owl.carousel.min.css">
+        <link rel="stylesheet" href="../bootstrap/owl.theme.default.min.css">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
+            <script type="text/javascript" src="myplugin.js"></script>
+        <script type="text/javascript">
+            $(document).ready(init);
+            function init() 
+            {
+                $('.owl-carousel').owlCarousel({
+                    loop:true,
+                    margin:10,
+                    nav:true,
+                    autoWidth:true,
+                    center:true,
+                })
+            }
+        </script>
+    </head>
+    <!-- Entête de la page: Titre + menu banière -->
+    <header class="bg-danger">
+        <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+            <a class="navbar-brand" href="#"><h1 class="text-success">MétéoMontréal</h1></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../pages/Accueil.html"><h2 class="text-warning">Accueil</h2> <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link"><h2 class="text-info">Prévision</h2></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../pages/prevision3jours.html"><h2 class="text-warning">3 Jours</h2> <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../pages/prevision7jour.html"><h2 class="text-warning">7 Jours</h2> <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../pages/prevision14jours.html"><h2 class="text-dark">14 Jours</h2> <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../pages/statistiques.html"><h2 class="text-warning">Statistiques</h2> <span class="sr-only">(current)</span></a>
+                    </li>
+              </ul>
+            </div>
+          </nav>
+    </header>
+    <body class="bg-secondary">
+        <!-- Prévision journalière -->
+        <div class="container">
+            <div class="row">
+                <div class="col-6 card bg-light">
+                    <div class="card-header text-light"><h2 class="text-dark">Prévision journalière</h2></div>
+                    <div class="card-header bg-dark"><h2 class="text-light text-center">27 Janvier</h2></div>
+                    <div class="bg-warning"><h3 class="text-danger text-center"> Max: 2C</h2></div>
+                    <div class="bg-info"><h3 class="text-light text-center"> Min: -17C</h2></div>
+                    <div class="card-body">
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="card" style="width: 11rem;">
+                        <img src="../images/neige.png"" class="card-img-top" alt="image placeholder">
+                    </div>
+                </div>
+                <!-- Map placeholder -->
+                <div class="col-4">
+                    <div class="card" style="width: 22rem;">
+                        <img src="../images/mapJour.png" class="card-img-top" alt="image placeholder">
+                    <div class="card-body">
+                        <p class="card-text"> bulk of the card's content.</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <!-- Millieu de page: prévision 14 jours -->
+        <div class="container text-dark"><h2>Prévision 14 jours</h2></div>  
+        <div class="bg-secondary owl-carousel owl-theme container-sm">
+            <div class="card" >
+                <div class="card-header bg-dark" style="width: 100px;"><h4 class="text-light text-center">Lundi 4 </h4></div>
+                <div class="bg-warning" style="width: 100px;"><h5 class="text-danger text-center"> Max: 2C</h5></div>
+                <div class="bg-info" style="width: 100px;"><h5 class="text-light text-center"> Min: -17C</h5></div>
+                <div  class="card-footer" style="width: 100px;"><img src="../images/soleil.png"><h6 class=" text-center text-success">Ensoleilé</h6></div>
+            </div>
+            <div class="card" >
+                <div class="card-header bg-dark" style="width: 100px;"><h4 class="text-light text-center">Lundi 4 </h4></div>
+                <div class="bg-warning" style="width: 100px;"><h5 class="text-danger text-center"> Max: 2C</h5></div>
+                <div class="bg-info" style="width: 100px;"><h5 class="text-light text-center"> Min: -17C</h5></div>
+                <div  class="card-footer" style="width: 100px;"><img src="../images/soleil.png"><h6 class=" text-center text-success">Ensoleilé</h6></div>
+            </div>
+            <div class="card" >
+                <div class="card-header bg-dark" style="width: 100px;"><h4 class="text-light text-center">Lundi 4 </h4></div>
+                <div class="bg-warning" style="width: 100px;"><h5 class="text-danger text-center"> Max: 2C</h5></div>
+                <div class="bg-info" style="width: 100px;"><h5 class="text-light text-center"> Min: -17C</h5></div>
+                <div  class="card-footer" style="width: 100px;"><img src="../images/soleil.png"><h6 class=" text-center text-success">Ensoleilé</h6></div>
+            </div>
+            <div class="card" >
+                <div class="card-header bg-dark" style="width: 100px;"><h4 class="text-light text-center">Lundi 4 </h4></div>
+                <div class="bg-warning" style="width: 100px;"><h5 class="text-danger text-center"> Max: 2C</h5></div>
+                <div class="bg-info" style="width: 100px;"><h5 class="text-light text-center"> Min: -17C</h5></div>
+                <div  class="card-footer" style="width: 100px;"><img src="../images/soleil.png"><h6 class=" text-center text-success">Ensoleilé</h6></div>
+            </div>
+            <div class="card" >
+                <div class="card-header bg-dark" style="width: 100px;"><h4 class="text-light text-center">Lundi 4 </h4></div>
+                <div class="bg-warning" style="width: 100px;"><h5 class="text-danger text-center"> Max: 2C</h5></div>
+                <div class="bg-info" style="width: 100px;"><h5 class="text-light text-center"> Min: -17C</h5></div>
+                <div  class="card-footer" style="width: 100px;"><img src="../images/soleil.png"><h6 class=" text-center text-success">Ensoleilé</h6></div>
+            </div>
+            <div class="card" >
+                <div class="card-header bg-dark" style="width: 100px;"><h4 class="text-light text-center">Lundi 4 </h4></div>
+                <div class="bg-warning" style="width: 100px;"><h5 class="text-danger text-center"> Max: 2C</h5></div>
+                <div class="bg-info" style="width: 100px;"><h5 class="text-light text-center"> Min: -17C</h5></div>
+                <div  class="card-footer" style="width: 100px;"><img src="../images/soleil.png"><h6 class=" text-center text-success">Ensoleilé</h6></div>
+            </div>
+            <div class="card" >
+                <div class="card-header bg-dark" style="width: 100px;"><h4 class="text-light text-center">Lundi 4 </h4></div>
+                <div class="bg-warning" style="width: 100px;"><h5 class="text-danger text-center"> Max: 2C</h5></div>
+                <div class="bg-info" style="width: 100px;"><h5 class="text-light text-center"> Min: -17C</h5></div>
+                <div  class="card-footer" style="width: 100px;"><img src="../images/soleil.png"><h6 class=" text-center text-success">Ensoleilé</h6></div>
+            </div>
+            <div class="card" >
+                <div class="card-header bg-dark" style="width: 100px;"><h4 class="text-light text-center">Lundi 4 </h4></div>
+                <div class="bg-warning" style="width: 100px;"><h5 class="text-danger text-center"> Max: 2C</h5></div>
+                <div class="bg-info" style="width: 100px;"><h5 class="text-light text-center"> Min: -17C</h5></div>
+                <div  class="card-footer" style="width: 100px;"><img src="../images/soleil.png"><h6 class=" text-center text-success">Ensoleilé</h6></div>
+            </div>
+            <div class="card" >
+                <div class="card-header bg-dark" style="width: 100px;"><h4 class="text-light text-center">Lundi 4 </h4></div>
+                <div class="bg-warning" style="width: 100px;"><h5 class="text-danger text-center"> Max: 2C</h5></div>
+                <div class="bg-info" style="width: 100px;"><h5 class="text-light text-center"> Min: -17C</h5></div>
+                <div  class="card-footer" style="width: 100px;"><img src="../images/soleil.png"><h6 class=" text-center text-success">Ensoleilé</h6></div>
+            </div>
+            <div class="card" >
+                <div class="card-header bg-dark" style="width: 100px;"><h4 class="text-light text-center">Lundi 4 </h4></div>
+                <div class="bg-warning" style="width: 100px;"><h5 class="text-danger text-center"> Max: 2C</h5></div>
+                <div class="bg-info" style="width: 100px;"><h5 class="text-light text-center"> Min: -17C</h5></div>
+                <div  class="card-footer" style="width: 100px;"><img src="../images/soleil.png"><h6 class=" text-center text-success">Ensoleilé</h6></div>
+            </div>
+            <div class="card" >
+                <div class="card-header bg-dark" style="width: 100px;"><h4 class="text-light text-center">Lundi 4 </h4></div>
+                <div class="bg-warning" style="width: 100px;"><h5 class="text-danger text-center"> Max: 2C</h5></div>
+                <div class="bg-info" style="width: 100px;"><h5 class="text-light text-center"> Min: -17C</h5></div>
+                <div  class="card-footer" style="width: 100px;"><img src="../images/soleil.png"><h6 class=" text-center text-success">Ensoleilé</h6></div>
+            </div>
+            <div class="card" >
+                <div class="card-header bg-dark" style="width: 100px;"><h4 class="text-light text-center">Lundi 4 </h4></div>
+                <div class="bg-warning" style="width: 100px;"><h5 class="text-danger text-center"> Max: 2C</h5></div>
+                <div class="bg-info" style="width: 100px;"><h5 class="text-light text-center"> Min: -17C</h5></div>
+                <div  class="card-footer" style="width: 100px;"><img src="../images/soleil.png"><h6 class=" text-center text-success">Ensoleilé</h6></div>
+            </div>
+            <div class="card" >
+                <div class="card-header bg-dark" style="width: 100px;"><h4 class="text-light text-center">Lundi 4 </h4></div>
+                <div class="bg-warning" style="width: 100px;"><h5 class="text-danger text-center"> Max: 2C</h5></div>
+                <div class="bg-info" style="width: 100px;"><h5 class="text-light text-center"> Min: -17C</h5></div>
+                <div  class="card-footer" style="width: 100px;"><img src="../images/soleil.png"><h6 class=" text-center text-success">Ensoleilé</h6></div>
+            </div>
+            <div class="card" >
+                <div class="card-header bg-dark" style="width: 100px;"><h4 class="text-light text-center">Lundi 4 </h4></div>
+                <div class="bg-warning" style="width: 100px;"><h5 class="text-danger text-center"> Max: 2C</h5></div>
+                <div class="bg-info" style="width: 100px;"><h5 class="text-light text-center"> Min: -17C</h5></div>
+                <div  class="card-footer" style="width: 100px;"><img src="../images/soleil.png"><h6 class=" text-center text-success">Ensoleilé</h6></div>
+            </div>
+        </div>
+        
+     
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/script.js"></script>
+        <script src="../js/owl.carousel.min.js"></script>
+
+    </body>
+</html>
