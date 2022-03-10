@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="../bootstrap/owl.carousel.min.css">
         <link rel="stylesheet" href="../bootstrap/owl.theme.default.min.css">
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
-            <script type="text/javascript" src="myplugin.js"></script>
+            
         <script type="text/javascript">
             $(document).ready(init);
             function init() 
@@ -57,20 +57,17 @@
             </div>
           </nav>
     </header>
-        <body class="bg-secondary">
+    <body class="bg-secondary" onload="ajoutCard(3)">
             <!-- Prévision journalière -->
             <div class="container">
                 <div class="row">
-                    <div class="col-6 card bg-light">
-                        <div class="card-header text-light"><h2 class="text-dark">Prévision journalière</h2></div>
-                        <div class="card-header bg-dark"><h2 class="text-light text-center">Mercredi 26 Janvier 2022</h2></div>
-                        <div class="bg-warning"><h3 class="text-danger text-center"> Max: 2C</h2></div>
-                        <div class="bg-info"><h3 class="text-light text-center"> Min: -17C</h2></div>
-                        <div class="card-body">
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
+                        <div class="col-6 card bg-light">
+                            <div class="card-header text-light"><h2 class="text-dark">Prévision journalière</h2></div>
+                            <div id="journalierHeader"class="card-header bg-dark" value="- -"><h2 class="text-light text-center"></h2></div>
+                            <div id="journalierNow"class="bg-info"><h3 class="text-light text-center"> Now: - -</h2></div>
+                            <div id="journalierMax"class="bg-warning"><h3 class="text-danger text-center">Max: - -</h2></div>
+                            <div id="journalierMin"class="bg-info"><h3 class="text-light text-center"> Min: - -</h2></div>
                         </div>
-                    </div>
                     <div class="col-2">
                         <div class="card" style="width: 11rem;">
                             <img src="../images/neige.png"" class="card-img-top" alt="image placeholder">
@@ -88,7 +85,10 @@
             </div>
         <!-- Millieu de page: prévision 3 jours -->
         <div class="container text-dark"><h2>Prévision 3 jours</h2></div>  
-            <div class="card">
+            <div id="carousel"></div>
+      
+           
+            <!-- <div class="card">
                 <div class="card-header bg-dark"><h2 class="text-light text-center">Jeudi 27 Janvier</h2></div>
                 <div class="bg-warning"><h3 class="text-danger text-center"> Max: 2C</h2></div>
                 <div class="bg-info"><h3 class="text-light text-center"> Min: -17C</h2></div>
@@ -105,7 +105,7 @@
                 <div class="bg-warning"><h3 class="text-danger text-center"> Max: -8C</h2></div>
                 <div class="bg-info"><h3 class="text-light text-center"> Min: -22C</h2></div>
                 <div  class="card-footer"><img src="../images/nuage.png"><h4 class=" text-center text-secondary">Enuagé</h4></div>
-            </div>       
+            </div>         -->
         </div>
      
         <script src="../js/jquery-3.6.0.min.js"></script>
