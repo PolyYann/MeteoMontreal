@@ -1,18 +1,17 @@
 
+// Exemple de fonction Fetch
+// function lireJson() {
+//     fetch('../data/temperatures_2022.json')
+//         .then(function (reponse) {
+//             return reponse.json();
+//         })
+//     .then(function (data) {
+//       var  donneeTemp = data.temperatures;
+//       return donneeTemp;
+//     });
+// }
 
-function lireJson() {
-    // fetch('../data/temperatures_2022.json')
-    //     .then(function (reponse) {
-    //         return reponse.json();
-    //     })
-    // .then(function (data) {
-    //   var  donneeTemp = data.temperatures;
-    //   return donneeTemp;
-    // });
-}
-//var donneTemp = lireJson()
-
-
+// Ajout des cartes de prévisions météo
 function ajoutCard(nbrJour) {
     fetch('../data/temperatures_2022.json')
         .then(function (reponse) {
@@ -23,9 +22,13 @@ function ajoutCard(nbrJour) {
             var donneeTemp = data.temperatures;
             //Index DB de la journee courante
             let indexJour = indexJourneeCourante()
+            console.log(indexJour)
             //Tableau d'objet nom=carte
             let tableCarte = document.getElementsByName("carte")
-            
+            console.log(tableCarte.length)
+            // index du nombre d'itération
+            let indexFin = indexJour + tableCarte.length
+            console.log(indexFin)
             //parent
            // let parent = document.getElementById("parent")
             //carousel
@@ -34,7 +37,7 @@ function ajoutCard(nbrJour) {
             //creer cartes
            
             
-            for (let index = indexJour+1; index < (indexJour + tableCarte.length); index++) {
+            for (let index = indexJour+1; index < indexFin; index++) {
                 //référence de la carte modifié chaque ittération
                 let card = tableCarte[index-indexJour]
                 //carte parent
@@ -62,7 +65,7 @@ function ajoutCard(nbrJour) {
                 let image= document.createElement("img")
                  image.setAttribute("src", getImage(donneeTemp[index].Temp))
                 divImage.appendChild(image)
-            card.setAttribute("style", "width:150px height")
+            // card.setAttribute("style", "width:150px height")
                 //carousel.appendChild(card)
                 card.appendChild(divDay)
                 card.appendChild(divMax)
@@ -87,7 +90,6 @@ function ajoutPrevisionJournaliere() {
             var tempMin = document.getElementById("journalierMin")
             // index DB de la journee courante
             let indexJour = indexJourneeCourante()
-            console.log(indexJour)
             //formatage affichage de la journée
             let weekDay = formaterDate(donneeTemp[indexJour].DateDuJour)
             jour.innerText = weekDay
@@ -113,11 +115,13 @@ function getImage(temp) {
         return "../images/soleil.png"
     }
 }
+
 //Retour de la date en format d'affichage du site
 function formaterDate(tmpDate){
     return date = new Date(tmpDate).toLocaleString
         ('fr-CA', {  weekday: 'long', day: '2-digit' });
 }
+
 //Retour d'un index indiquant la journéé courrant en jour de l'annee
 function indexJourneeCourante(){
     var date = new Date();
@@ -127,7 +131,3 @@ function indexJourneeCourante(){
     var jour = Math.floor(difference / journee);
     return jour;
 }
-
-ajoutPrevisionJournaliere()
-
-
