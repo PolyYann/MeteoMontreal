@@ -7,7 +7,6 @@
 //         })
 //     .then(function (data) {
 //       var  donneeTemp = data.temperatures;
-//       return donneeTemp;
 //     });
 // }
 
@@ -21,14 +20,14 @@ function ajoutCard(nbrJour) {
             //Table de la DB      
             var donneeTemp = data.temperatures;
             //Index DB de la journee courante
-            let indexJour = indexJourneeCourante()
-            console.log(indexJour)
+            let indexJour = rechercheIndexJournee()
+            // console.log(indexJour)
             //Tableau d'objet nom=carte
             let tableCarte = document.getElementsByName("carte")
-            console.log(tableCarte.length)
+            // console.log(tableCarte.length)
             // index du nombre d'itération
             let indexFin = indexJour + tableCarte.length
-            console.log(indexFin)
+            // console.log(indexFin)
             //parent
            // let parent = document.getElementById("parent")
             //carousel
@@ -45,7 +44,7 @@ function ajoutCard(nbrJour) {
                 //card.setAttribute("class", "card")
                 
                 //ajouter date
-                let weekDay = formaterDate(donneeTemp[index].DateDuJour)
+                let weekDay = FormatDateAffichage(donneeTemp[index].DateDuJour)
                 let divDay = document.createElement("div")
                 divDay.setAttribute("class", "h5 card-header bg-dark text-light text-center")
                 divDay.innerHTML = weekDay
@@ -88,10 +87,12 @@ function ajoutPrevisionJournaliere() {
             var temperature = document.getElementById("journalierNow")
             var tempMax = document.getElementById("journalierMax")
             var tempMin = document.getElementById("journalierMin")
+            var imageJour = document.getElementById("imageJour")
             // index DB de la journee courante
-            let indexJour = indexJourneeCourante()
+            let indexJour = rechercheIndexJour(donneeTemp)
+            console.log(indexJour)
             //formatage affichage de la journée
-            let weekDay = formaterDate(donneeTemp[indexJour].DateDuJour)
+            let weekDay = FormatDateAffichage(donneeTemp[indexJour].DateDuJour)
             jour.innerText = weekDay
             jour.setAttribute("class", "h2 bg-dark text-center text-light")
             temperature.textContent = ("Maintenant: " +donneeTemp[indexJour].Temp)
@@ -99,7 +100,8 @@ function ajoutPrevisionJournaliere() {
             tempMax.innerText = ("Max: " + donneeTemp[indexJour].MaxTemp)
             tempMax.setAttribute("class", "h3 bg-warning text-center text-danger") 
             tempMin.innerText = ("Min: " + donneeTemp[indexJour].MinTemp)
-            tempMin.setAttribute("class", "h3 bg-info text-center text-light") 
+            tempMin.setAttribute("class", "h3 bg-info text-center text-light")
+            imageJour.setAttribute("src", getImage(donneeTemp[indexJour].Temp)) 
         });                
 }
 
@@ -117,17 +119,45 @@ function getImage(temp) {
 }
 
 //Retour de la date en format d'affichage du site
-function formaterDate(tmpDate){
+function FormatDateAffichage(tmpDate){
+
     return date = new Date(tmpDate).toLocaleString
         ('fr-CA', {  weekday: 'long', day: '2-digit' });
 }
+// Retour de la date en format court pour la recherche
+function FormatDateRecherche(tmpDate){
+    
+    return date = new Date(tmpDate).toLocaleString
+        ('fr-CA', {dateStyle:'short'});
+}
 
 //Retour d'un index indiquant la journéé courrant en jour de l'annee
-function indexJourneeCourante(){
+function rechercheIndexJournee(){
+
     var date = new Date();
     var nouvelleAns = new Date(date.getFullYear(), 0, 0);
     var difference = date - nouvelleAns;
     var journee = 1000 * 60 * 60 * 24;
     var jour = Math.floor(difference / journee);
     return jour;
+}
+
+// Recherche sequentiel de la BD pour trouvé la date du jour
+function rechercheIndexJour(tableTemp){
+
+    var index = 0;
+    var flag = false;
+    //Date du jour
+    tmpJour = new Date();
+    //Formatage au format de la BD
+    tmpJour = FormatDateRecherche(tmpJour);     
+    while (index < tableTemp.length && flag == false) {
+        //Date de la BD à l'index
+        tmpDate = (tableTemp[index].DateDuJour);
+        if(tmpDate == tmpJour){
+            flag = true;
+        }
+        index++;
+    }        
+    return index    
 }

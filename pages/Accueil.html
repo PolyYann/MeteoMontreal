@@ -37,6 +37,7 @@
             }
         </script>
     </head>
+
     <!-- Entête de la page: Titre + menu banière -->
     <header class="bg-dark">
         <nav class="navbar navbar-expand-lg navbar-light bg-primary">
@@ -68,8 +69,9 @@
             </div>
           </nav>
     </header>
-    <body class="bg-secondary">
-        <!-- Prévision journalière -->
+    <body class="bg-secondary" onload="ajoutPrevisionJournaliere()">
+    
+    <!-- Prévision journalière -->
         <div class="container">
             <div class="row">
                 <div class="col-6 card bg-light">
@@ -81,7 +83,7 @@
                 </div>
                 <div class="col-2">
                     <div class="card" style="width: 11rem;">
-                        <img src="../images/neige.png" class="card-img-top" alt="image placeholder">
+                        <img id="imageJour" src="../images/neige.png" class="card-img-top" alt="image placeholder">
                     </div>
                 </div>
                 <!-- Map placeholder -->
@@ -94,6 +96,7 @@
                 </div>
             </div>
         </div>
+        
         <!-- Millieu de page: placeholder -->
         <div class="container text-light"><h2>Placeholder</h2></div>  
         
