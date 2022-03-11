@@ -16,11 +16,11 @@
             function init() 
             {
                 $('.owl-carousel').owlCarousel({
-                    loop:false,
-                    margin:15,
+                    loop:true,
+                    margin:5,
                     nav:true,
                     autoWidth:true,
-                    center:false,
+                    center:true,
                     
                 })
             }
@@ -77,63 +77,55 @@
                     <div class="col-4">
                         <div class="card" style="width: 22rem;">
                             <img src="../images/mapJour.png" class="card-img-top" alt="image placeholder">
-                        <div class="card-body">
-                            <p class="card-text"> bulk of the card's content.</p>
+                            <div class="card-body">
+                                <p class="card-text"> bulk of the card's content.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         <!-- Millieu de page: prévision 7 jours -->
-        <div class="container text-dark"><h2>Prévision 7 jours</h2></div> 
-        
-        <div id="parent"></div>
-           
-             <!-- <div class="card">
-                <div class="card-header bg-dark"><h2 class="text-light text-center">27 Janvier</h2></div>
-                <div class="bg-warning"><h3 class="text-danger text-center"> Max: 2C</h2></div>
-                <div class="bg-info"><h3 class="text-light text-center"> Min: -17C</h2></div>
-                <div  class="card-footer"><img src="../images/soleil.png"><h4 class=" text-center text-success">Ensoleilé</h4></div>
+        <div class="container text-dark">
+            <h2>Prévision 7 jours</h2>
+        </div>
+        <div id="parent" class="bg-secondary owl-carousel owl-theme container-sm">
+            <div name="carte"class="card">
+                <div class="card-header bg-dark" style="width: 100px;">
+                    <!-- <h4 class="text-light text-center">Lundi 4 </h4> -->
+                </div> 
             </div>
-            <div class="card">
-                <div class="card-header bg-dark"><h2 class="text-light text-center">28 Janvier</h2></div>
-                <div class="bg-warning"><h3 class="text-danger text-center"> Max: 2C</h2></div>
-                    <div class="bg-info"><h3 class="text-light text-center"> Min: -17C</h2></div>
-                <div  class="card-footer"><img src="../images/soleil.png"><h4 class=" text-center text-success">Ensoleilé</h4></div>
+            <div name="carte"class="card">
+                <div class="card-header bg-dark" style="width: 100px;">
+                    <!-- <h4 class="text-light text-center">Lundi 4 </h4> -->
+                </div> 
             </div>
-            <div class="card">
-                <div class="card-header bg-dark"><h2 class="text-light text-center">29 Janvier</h2></div>
-                <div class="bg-warning"><h3 class="text-danger text-center"> Max: 2C</h2></div>
-                    <div class="bg-info"><h3 class="text-light text-center"> Min: -17C</h2></div>
-                <div  class="card-footer"><img src="../images/nuage.png"><h4 class=" text-center text-danger">Enuagé</h4></div>
+            <div name="carte"class="card">
+                <div class="card-header bg-dark" style="width: 100px;">
+                    <!-- <h4 class="text-light text-center">Lundi 4 </h4> -->
+                </div> 
             </div>
-            <div class="card">
-                <div class="card-header bg-dark"><h2 class="text-light text-center">30 Janvier</h2></div>
-                <div class="bg-warning"><h3 class="text-danger text-center"> Max: 2C</h2></div>
-                    <div class="bg-info"><h3 class="text-light text-center"> Min: -17C</h2></div>
-                <div  class="card-footer"><img src="../images/nuage.png"><h4 class=" text-center text-danger">Enuagé</h4></div>
+            <div name="carte"class="card">
+                <div class="card-header bg-dark" style="width: 100px;">
+                    <!-- <h4 class="text-light text-center">Lundi 4 </h4> -->
+                </div> 
             </div>
-            <div class="card">
-                <div class="card-header bg-dark"><h2 class="text-light text-center">31 Janvier</h2></div>
-                <div class="bg-warning"><h3 class="text-danger text-center"> Max: 2C</h2></div>
-                    <div class="bg-info"><h3 class="text-light text-center"> Min: -17C</h2></div>
-                <div  class="card-footer"><img src="../images/pluie.png"><h4 class=" text-center text-danger">Pluie</h4></div>
+            <div name="carte"class="card">
+                <div class="card-header bg-dark" style="width: 100px;">
+                    <!-- <h4 class="text-light text-center">Lundi 4 </h4> -->
+                </div> 
             </div>
-            <div class="card">
-                <div class="card-header bg-dark"><h2 class="text-light text-center">1 Février</h2></div>
-                <div class="bg-warning"><h3 class="text-danger text-center"> Max: 2C</h2></div>
-                    <div class="bg-info"><h3 class="text-light text-center"> Min: -17C</h2></div>
-                <div  class="card-footer"><img src="../images/neige.png"><h4 class=" text-center text-danger">Neige</h4></div>
+            <div name="carte"class="card">
+                <div class="card-header bg-dark" style="width: 100px;">
+                   
+                </div> 
             </div>
-            <div class="card">
-                <div class="card-header bg-dark"><h2 class="text-light text-center">2 Février</h2></div>
-                <div class="bg-warning"><h3 class="text-danger text-center"> Max: 2C</h2></div>
-                    <div class="bg-info"><h3 class="text-light text-center"> Min: -17C</h2></div>
-                <div  class="card-footer"><img src="../images/neige.png"><h4 class=" text-center text-danger">Neige</h4></div>
-            </div> -->
+            <div name="carte"class="card">
+                <div class="card-header bg-dark" style="width: 100px;">
             
-            
-        
-     
+                </div> 
+            </div> 
+              
+        </div>
         <script src="../js/jquery-3.6.0.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
         <script src="../js/script.js"></script>
