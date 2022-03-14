@@ -10,6 +10,15 @@
 //     });
 // }
 
+//Question prof.:   fetch/then utilisation
+//                  usage de javascript pour créer la page vs html
+//                     
+
+//Constantes
+const froid = 0;
+const pluie = 10;
+const nuage = 20;
+
 // Ajout des cartes de prévisions météo
 function ajoutCard(nbrJour) {
     fetch('../data/temperatures_2022.json')
@@ -107,11 +116,11 @@ function ajoutPrevisionJournaliere() {
 
 //Retour d'une image en fonction de la température recu en argument
 function getImage(temp) {
-    if (temp <= 0){
+    if (temp <= froid){
        return "../images/neige.png"
-    }else if(temp<= 10){
+    }else if(temp <= pluie){
         return "../images/pluie.png"
-    }else if(temp<20){
+    }else if(temp < nuage){
         return "../images/nuage.png"
     }else {
         return "../images/soleil.png"
