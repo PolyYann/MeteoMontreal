@@ -1,14 +1,4 @@
 
-// Exemple de fonction Fetch
-// function lireJson() {
-//     fetch('../data/temperatures_2022.json')
-//         .then(function (reponse) {
-//             return reponse.json();
-//         })
-//     .then(function (data) {
-//       var  donneeTemp = data.temperatures;
-//     });
-// }
 
 //Question prof.:   fetch/then utilisation
 //                  usage de javascript pour créer la page vs html
@@ -164,15 +154,15 @@ function rechercheIndexJour(tableTemp){
 
 
 //Retour d'un index indiquant la journéé courrant en jour de l'annee
-function rechercheIndexJournee(){
+// function rechercheIndexJournee(){
 
-    var date = new Date();
-    var nouvelleAns = new Date(date.getFullYear(), 0, 0);
-    var difference = date - nouvelleAns;
-    var journee = 1000 * 60 * 60 * 24;
-    var jour = Math.floor(difference / journee);
-    return jour;
-}
+//     var date = new Date();
+//     var nouvelleAns = new Date(date.getFullYear(), 0, 0);
+//     var difference = date - nouvelleAns;
+//     var journee = 1000 * 60 * 60 * 24;
+//     var jour = Math.floor(difference / journee);
+//     return jour;
+// }
 
 
 // function ajoutPrevisionJournaliere() {
