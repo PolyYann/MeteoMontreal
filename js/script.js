@@ -12,7 +12,8 @@
 
 //Question prof.:   fetch/then utilisation
 //                  usage de javascript pour créer la page vs html
-//                     
+//                  initialisation du owl carousel
+//                  dédoublage des cartes
 
 //Constantes
 const froid = 0;
