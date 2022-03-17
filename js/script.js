@@ -9,6 +9,10 @@
 const froid = 0;
 const pluie = 10;
 const nuage = 20;
+const tempTab = [{desc : "Froid, chance de neige",image : "../images/neige.png"},
+    {desc : "Précipitaion Pluie", image :"../images/pluie.png"},
+    { desc : "Nuageux", image :"../images/nuage.png" }, {desc : "Ensoleillé", image : "../images/soleil.png"}];
+// const mois =["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Aout","Septembre","Octobre","Novembre", "Décembre"]
 
 //function fetch global + affichage des écrans
 function initialiserPage(nbrJour){
@@ -33,48 +37,37 @@ function ajoutPrevisionJournaliere(donneeTemp) {
     var tempMax = document.getElementById("journalierMax")
     var tempMin = document.getElementById("journalierMin")
     var imageJour = document.getElementById("imageJour")
+    //Date du jour
+    tmpJour = new Date();
     // index DB de la journee courante
-    let indexJour = rechercheIndexJour(donneeTemp)
+    let indexJour = rechercheIndexJour(donneeTemp, tmpJour)
     //formatage affichage de la journée
     let weekDay = FormatDateAffichage(donneeTemp[indexJour].DateDuJour)
+    //Mise à jour des données journalière
     jour.innerText = weekDay
-    jour.setAttribute("class", "h2 bg-dark text-center text-light")
-    temperature.textContent = ("Maintenant: " +donneeTemp[indexJour].Temp)
-    temperature.setAttribute("class", "h3 bg-info text-center text-light") 
+    temperature.innerHTML = ("Maintenant: " +donneeTemp[indexJour].Temp)
     tempMax.innerText = ("Max: " + donneeTemp[indexJour].MaxTemp)
-    tempMax.setAttribute("class", "h3 bg-warning text-center text-danger") 
     tempMin.innerHTML = ("Min: " + donneeTemp[indexJour].MinTemp)
-    tempMin.setAttribute("class", "h3 bg-info text-center text-light")
     imageJour.setAttribute("src", getImage(donneeTemp[indexJour].Temp))             
 }
 
-// Ajout des cartes de prévisions météo
+
+// // Ajout des cartes de prévisions météo
 function ajoutCard(nbrJour, donneeTemp) {
   
+    //Date du jour
+    tmpJour = new Date();
     //Index DB de la journee courante
-    let indexJour = rechercheIndexJour(donneeTemp)
-    // console.log(indexJour)
+    let indexJour = rechercheIndexJour(donneeTemp, tmpJour)
     //Tableau d'objet nom=carte
     let tableCarte = document.getElementsByName("carte")
-    console.log(tableCarte.length)
     // index du nombre d'itération
-    let indexFin = indexJour + tableCarte.length
-    // console.log(indexFin)
-    //parent
-   // let parent = document.getElementById("parent")
-    //carousel
-    //let carousel = document.getElementById("parent")
-    //carousel.setAttribute("class", "bg-secondary owl-carousel owl-theme container-sm")
-    //creer cartes
-   
-    
-    for (let index = indexJour+1; index < indexFin; index++) {
+    let indexFin = indexJour + nbrJour + 1
+
+    for (let index = indexJour+1; index <= indexFin; index++) {
         //référence de la carte modifié chaque ittération
-        let card = tableCarte[index-indexJour]
-        //carte parent
-        //let card = document.createElement("div")
-        //card.setAttribute("class", "card")
-        
+        let card = tableCarte[index-indexJour-1]
+       
         //ajouter date
         let weekDay = FormatDateAffichage(donneeTemp[index].DateDuJour)
         let divDay = document.createElement("div")
@@ -96,26 +89,24 @@ function ajoutCard(nbrJour, donneeTemp) {
         let image= document.createElement("img")
          image.setAttribute("src", getImage(donneeTemp[index].Temp))
         divImage.appendChild(image)
-    // card.setAttribute("style", "width:150px height")
-        //carousel.appendChild(card)
         card.appendChild(divDay)
         card.appendChild(divMax)
         card.appendChild(divMin)
         card.appendChild(divImage)   
-    }
-    //parent.appendChild(carousel)        
+    }      
 }
 
 //Retour d'une image en fonction de la température recu en argument
 function getImage(temp) {
+    
     if (temp <= froid){
-       return "../images/neige.png"
+        return tempTab[0].image
     }else if(temp <= pluie){
-        return "../images/pluie.png"
+        return tempTab[1].image
     }else if(temp < nuage){
-        return "../images/nuage.png"
+        return tempTab[2].image
     }else {
-        return "../images/soleil.png"
+        return tempTab[3].image
     }
 }
 
@@ -131,14 +122,19 @@ function FormatDateRecherche(tmpDate){
     return date = new Date(tmpDate).toLocaleString
         ('fr-CA', {dateStyle:'short'});
 }
+// Retour de la date en format UTC pour la recherche
+function FormatDateRecherche(tmpDate){
+    
+    return date = new Date(tmpDate).toLocaleString
+        ('fr-CA', {dateStyle:'short'});
+}
 
 // Recherche sequentiel de la BD pour trouvé la date du jour
-function rechercheIndexJour(tableTemp){
+function rechercheIndexJour(tableTemp, tmpJour){
 
     var index = 0;
     var flag = false;
-    //Date du jour
-    tmpJour = new Date();
+    
     //Formatage au format de la BD
     tmpJour = FormatDateRecherche(tmpJour);     
     while (index < tableTemp.length && flag == false) {
@@ -152,110 +148,55 @@ function rechercheIndexJour(tableTemp){
     return index    
 }
 
-
-//Retour d'un index indiquant la journéé courrant en jour de l'annee
-// function rechercheIndexJournee(){
-
-//     var date = new Date();
-//     var nouvelleAns = new Date(date.getFullYear(), 0, 0);
-//     var difference = date - nouvelleAns;
-//     var journee = 1000 * 60 * 60 * 24;
-//     var jour = Math.floor(difference / journee);
-//     return jour;
-// }
+statistiqueMois(1,2)
+function statistiqueMois(){
+    fetch('../data/temperatures_2022.json')
+    .then(function (reponse) {
+        return reponse.json();
+    })
+    .then(function (data) {
+        var  donneeTemp = data.temperatures;
 
 
-// function ajoutPrevisionJournaliere() {
-//     //fetch DB des températures journalières
-//     fetch('../data/temperatures_2022.json')
-//         .then(function (reponse) {
-//             return reponse.json();
-//         })
-//         .then(function (data) {
-//             var donneeTemp = data.temperatures;
-//             var jour = document.getElementById("journalierHeader")
-//             var temperature = document.getElementById("journalierNow")
-//             var tempMax = document.getElementById("journalierMax")
-//             var tempMin = document.getElementById("journalierMin")
-//             var imageJour = document.getElementById("imageJour")
-//             // index DB de la journee courante
-//             let indexJour = rechercheIndexJour(donneeTemp)
-//             console.log(indexJour)
-//             //formatage affichage de la journée
-//             let weekDay = FormatDateAffichage(donneeTemp[indexJour].DateDuJour)
-//             jour.innerText = weekDay
-//             jour.setAttribute("class", "h2 bg-dark text-center text-light")
-//             temperature.textContent = ("Maintenant: " +donneeTemp[indexJour].Temp)
-//             temperature.setAttribute("class", "h3 bg-info text-center text-light") 
-//             tempMax.innerText = ("Max: " + donneeTemp[indexJour].MaxTemp)
-//             tempMax.setAttribute("class", "h3 bg-warning text-center text-danger") 
-//             tempMin.innerHTML = ("Min: " + donneeTemp[indexJour].MinTemp)
-//             tempMin.setAttribute("class", "h3 bg-info text-center text-light")
-//             imageJour.setAttribute("src", getImage(donneeTemp[indexJour].Temp)) 
-//         });                
-// }
 
-// // Ajout des cartes de prévisions météo
-// function ajoutCard(nbrJour) {
-//     fetch('../data/temperatures_2022.json')
-//         .then(function (reponse) {
-//             return reponse.json();
-//         })
-//         .then(function (data) {
-//             //Table de la DB      
-//             var donneeTemp = data.temperatures;
-//             //Index DB de la journee courante
-//             let indexJour = rechercheIndexJournee()
-//             // console.log(indexJour)
-//             //Tableau d'objet nom=carte
-//             let tableCarte = document.getElementsByName("carte")
-//             // console.log(tableCarte.length)
-//             // index du nombre d'itération
-//             let indexFin = indexJour + tableCarte.length
-//             // console.log(indexFin)
-//             //parent
-//            // let parent = document.getElementById("parent")
-//             //carousel
-//             //let carousel = document.getElementById("parent")
-//             //carousel.setAttribute("class", "bg-secondary owl-carousel owl-theme container-sm")
-//             //creer cartes
-           
-            
-//             for (let index = indexJour+1; index < indexFin; index++) {
-//                 //référence de la carte modifié chaque ittération
-//                 let card = tableCarte[index-indexJour]
-//                 //carte parent
-//                 //let card = document.createElement("div")
-//                 //card.setAttribute("class", "card")
-                
-//                 //ajouter date
-//                 let weekDay = FormatDateAffichage(donneeTemp[index].DateDuJour)
-//                 let divDay = document.createElement("div")
-//                 divDay.setAttribute("class", "h5 card-header bg-dark text-light text-center")
-//                 divDay.innerHTML = weekDay
+        let mois = 4
+        console.log(mois.value)
+        dateMois = new Date();
+        console.log(dateMois.getMonth())
+        dateMois.setMonth(mois);
+        console.log(dateMois)
+        dateMois.setDate(1);
+        console.log(dateMois)
 
-//                 // //ajouter Max Temperature
-//                 let divMax = document.createElement("div")
-//                 divMax.setAttribute("class", "h3 bg-warning text-danger text-center")
-//                 divMax.innerHTML = donneeTemp[index].MaxTemp
-//                 // //ajouter Minumum temperature
-//                 let divMin = document.createElement("div")
-//                 divMin.setAttribute("class", "h3 bg-info text-light text-center")
-//                 divMin.innerHTML = donneeTemp[index].MinTemp
-//                 // //ajouter Image
-//                 let divImage = document.createElement("div")
-//                 divImage.setAttribute("class", "card-footer bg-light")
-//                 divImage.setAttribute("style", "width:auto")
-//                 let image= document.createElement("img")
-//                  image.setAttribute("src", getImage(donneeTemp[index].Temp))
-//                 divImage.appendChild(image)
-//             // card.setAttribute("style", "width:150px height")
-//                 //carousel.appendChild(card)
-//                 card.appendChild(divDay)
-//                 card.appendChild(divMax)
-//                 card.appendChild(divMin)
-//                 card.appendChild(divImage)   
-//             }
-//             //parent.appendChild(carousel)
-//         });
-// }
+        
+        let indexMois = rechercheIndexJour(donneeTemp, dateMois)
+        console.log(indexMois)
+        let indexDebut = indexMois
+        console.log((donneeTemp[indexMois].DateDuJour).charCodeAt(5))
+        while(donneeTemp[indexMois].DateDuJour.getMonth() == donneeTemp[indexDebut].DateDuJour.getMonth()){
+            console.log(donneeTemp[indexMois].DateDuJour)
+            indexMois++
+        }
+        
+
+        // new Chart("myChart", {
+        //     type: "line",
+        //     data: {
+        //       labels: xValues,
+        //       datasets: [{
+        //         data: [0,10,30,10,10,11,30,20,30,28],
+        //         borderColor: "red",
+        //         fill: false
+        //       },{
+        //         data: [30,0,20,20,0,40,0,10,20,00],
+        //         borderColor: "blue",
+        //         fill: false
+        //       }]
+        //     },
+        //     options: {
+        //       legend: {display: false}
+        //     }
+        //   });      
+    });  
+}
+
