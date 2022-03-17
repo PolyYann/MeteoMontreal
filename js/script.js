@@ -110,25 +110,6 @@ function getImage(temp) {
     }
 }
 
-//Retour de la date en format d'affichage du site
-function FormatDateAffichage(tmpDate){
-
-    return date = new Date(tmpDate).toLocaleString
-        ('fr-CA', {  weekday: 'long', day: '2-digit' });
-}
-// Retour de la date en format court pour la recherche
-function FormatDateRecherche(tmpDate){
-    
-    return date = new Date(tmpDate).toLocaleString
-        ('fr-CA', {dateStyle:'short'});
-}
-// Retour de la date en format UTC pour la recherche
-function FormatDateRecherche(tmpDate){
-    
-    return date = new Date(tmpDate).toLocaleString
-        ('fr-CA', {dateStyle:'short'});
-}
-
 // Recherche sequentiel de la BD pour trouvé la date du jour
 function rechercheIndexJour(tableTemp, tmpJour){
 
@@ -147,9 +128,28 @@ function rechercheIndexJour(tableTemp, tmpJour){
     }        
     return index    
 }
+//Retour de la date en format d'affichage du site
+function FormatDateAffichage(tmpDate){
 
-statistiqueMois(1,2)
-function statistiqueMois(){
+    return date = new Date(tmpDate).toLocaleString
+        ('fr-CA', {  weekday: 'long', day: '2-digit' });
+}
+// Retour de la date en format court pour la recherche
+function FormatDateRecherche(tmpDate){
+    
+    return date = new Date(tmpDate).toLocaleString
+        ('fr-CA', {dateStyle:'short'});
+}
+
+// Retour du nombre de jours dans le mois
+function joursDansMois(mois){
+    var annee = dateMois.getFullYear();
+        let joursMois = new Date(annee, mois+1, 0).getDate();
+        return joursMois
+}
+
+statistiqueMois(7)
+function statistiqueMois(mois){
     fetch('../data/temperatures_2022.json')
     .then(function (reponse) {
         return reponse.json();
@@ -157,46 +157,69 @@ function statistiqueMois(){
     .then(function (data) {
         var  donneeTemp = data.temperatures;
 
-
-
-        let mois = 4
-        console.log(mois.value)
         dateMois = new Date();
-        console.log(dateMois.getMonth())
+        //Modifier la date au mois selectionné
         dateMois.setMonth(mois);
-        console.log(dateMois)
+        //Remettre la date au premier jour du mois
         dateMois.setDate(1);
-        console.log(dateMois)
 
-        
-        let indexMois = rechercheIndexJour(donneeTemp, dateMois)
-        console.log(indexMois)
-        let indexDebut = indexMois
-        console.log((donneeTemp[indexMois].DateDuJour).charCodeAt(5))
-        while(donneeTemp[indexMois].DateDuJour.getMonth() == donneeTemp[indexDebut].DateDuJour.getMonth()){
-            console.log(donneeTemp[indexMois].DateDuJour)
-            indexMois++
-        }
-        
+        //Rechercher l'index du premier jour du mois
+        let indexJour = rechercheIndexJour(donneeTemp, dateMois)-1
 
-        // new Chart("myChart", {
-        //     type: "line",
-        //     data: {
-        //       labels: xValues,
-        //       datasets: [{
-        //         data: [0,10,30,10,10,11,30,20,30,28],
-        //         borderColor: "red",
-        //         fill: false
-        //       },{
-        //         data: [30,0,20,20,0,40,0,10,20,00],
-        //         borderColor: "blue",
-        //         fill: false
-        //       }]
-        //     },
-        //     options: {
-        //       legend: {display: false}
-        //     }
-        //   });      
+        //Nombre de jours dans 1 mois
+        let joursMois = joursDansMois(mois)
+        let tableTempMois = []
+        let journeeGraph = []
+        let moyGraph = []
+        let minGraph = []
+        let maxGraph = []
+        let indexDernierJour = indexJour+joursMois
+        let jour = indexDernierJour-indexDernierJour+1
+
+        for (indexJour; indexJour < indexDernierJour; indexJour++) {
+            
+            console.log(donneeTemp[indexJour].DateDuJour)
+            tableTempMois.push(donneeTemp[indexJour])
+            journeeGraph.push(jour)
+            jour++
+            minGraph.push(donneeTemp[indexJour].MinTemp)
+            maxGraph.push(donneeTemp[indexJour].MaxTemp)
+            moyGraph.push((donneeTemp[indexJour].MinTemp+donneeTemp[indexJour].MaxTemp)/2)
+        }     
+        // console.log(moy)
+        
+        new Chart("myChart", {
+            type: "bar",
+            data: {
+              labels: journeeGraph,
+              datasets: [{
+                label: "Températures moyennes",
+                data: moyGraph,
+                backgroundColor: "gray",
+                
+                fill: false
+              },{
+                label: "Températures minimal",
+                data: minGraph,
+                backgroundColor: "blue",
+                fill: false
+              },{
+                label: "Températures maximal",
+                data: maxGraph,
+                backgroundColor: "red",
+                fill: false
+              }]
+            },
+            options: {
+                layout: {
+                    padding: 10
+                },
+                
+                legend: {
+                    display: true
+                }
+            }
+          });      
     });  
 }
 
