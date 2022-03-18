@@ -101,13 +101,13 @@
         <div class="row">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="bg-info col-md-12">
                         <ul class="nav">
                             <li class="nav-item dropdown ml-md-auto">
                                 <div class="dropdown">
-                                    <button type="button" class="btn btn-default dropdown-toggle"
+                                    <button type="button" class="btn btn-default dropdown-toggle text-light bg-primary"
                                         data-toggle="dropdown" id="menuMois">
-                                        Choisir : <span class="selection">Mois</span><span class="caret"></span>
+                                        Choisir : <span class="selection text-light">Mois</span><span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu" >
                                        <a class="dropdown-item" href="#" value="0">Janvier</a></li>
@@ -123,35 +123,19 @@
                                         <li><a class="dropdown-item" href="#" value="10">Novembre</a></li>
                                         <li><a class="dropdown-item" href="#" value="11">Décembre</a></li>
                                     </ul>
-                                    
-
                                 </div>
-
+                            </li>
+                        </ul>
                     </div>
-                    </li>
-                    </ul>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-8">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <ul class="nav">
-
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4"></div>
+            <div class="row col-10" id="calendrier" ></div>
         </div>
+        <br>
+        <canvas id="myChart" class="map bg-light col-9"></canvas>
 
-        <div class="row">
-            <canvas id="myChart" class="map bg-light col-8"></canvas>
-        </div>
     </div>
 
 

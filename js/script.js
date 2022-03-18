@@ -1,10 +1,5 @@
 
 
-//Question prof.:   fetch/then utilisation
-//                  usage de javascript pour créer la page vs html
-//                  initialisation du owl carousel
-//                  dédoublage des carte
-
 //Constantes
 const froid = 0;
 const pluie = 10;
@@ -148,7 +143,7 @@ function joursDansMois(mois){
         return joursMois
 }
 
-statistiqueMois(7)
+statistiqueMois(1)
 function statistiqueMois(mois){
     fetch('../data/temperatures_2022.json')
     .then(function (reponse) {
@@ -156,7 +151,8 @@ function statistiqueMois(mois){
     })
     .then(function (data) {
         var  donneeTemp = data.temperatures;
-
+        // moiss = document.getElementById("menuMois")
+        // console.log(moiss.value)
         dateMois = new Date();
         //Modifier la date au mois selectionné
         dateMois.setMonth(mois);
@@ -175,51 +171,90 @@ function statistiqueMois(mois){
         let maxGraph = []
         let indexDernierJour = indexJour+joursMois
         let jour = indexDernierJour-indexDernierJour+1
-
+        let parent = document.getElementById("calendrier")
         for (indexJour; indexJour < indexDernierJour; indexJour++) {
-            
-            console.log(donneeTemp[indexJour].DateDuJour)
             tableTempMois.push(donneeTemp[indexJour])
             journeeGraph.push(jour)
             jour++
             minGraph.push(donneeTemp[indexJour].MinTemp)
             maxGraph.push(donneeTemp[indexJour].MaxTemp)
             moyGraph.push((donneeTemp[indexJour].MinTemp+donneeTemp[indexJour].MaxTemp)/2)
-        }     
-        // console.log(moy)
-        
-        new Chart("myChart", {
-            type: "bar",
-            data: {
-              labels: journeeGraph,
-              datasets: [{
-                label: "Températures moyennes",
-                data: moyGraph,
-                backgroundColor: "gray",
-                
-                fill: false
-              },{
-                label: "Températures minimal",
-                data: minGraph,
-                backgroundColor: "blue",
-                fill: false
-              },{
-                label: "Températures maximal",
-                data: maxGraph,
-                backgroundColor: "red",
-                fill: false
-              }]
-            },
-            options: {
-                layout: {
-                    padding: 10
-                },
-                
-                legend: {
-                    display: true
-                }
-            }
-          });      
+
+            // Creation du calendrier
+            let card = document.createElement("card")
+            card.setAttribute("class", "tailleCarteCal")
+
+            // ajouter date
+            let weekDay = FormatDateAffichage(donneeTemp[indexJour+1].DateDuJour)
+            let divDay = document.createElement("div")
+            divDay.setAttribute("class", "h6 tailleCarteCal card-header bg-dark text-light text-center")
+            // divDay.setAttribute("style", "width:100px")
+            divDay.innerHTML = weekDay
+    
+            // ajouter Max Temperature
+            let divMax = document.createElement("div")
+            divMax.setAttribute("class", "h6 tailleCarteCal bg-warning text-danger text-center")
+            // divMax.setAttribute("style", "width:100px")
+            divMax.innerHTML = donneeTemp[indexJour+1].MaxTemp
+            // ajouter Minumum temperature
+            let divMin = document.createElement("div")
+            divMin.setAttribute("class", "h6 tailleCarteCal bg-info text-light text-center")
+            // divMin.setAttribute("style", "width:100px")
+            divMin.innerHTML = donneeTemp[indexJour+1].MinTemp
+            // ajouter Image
+            let divImage = document.createElement("div")
+            // divImage.setAttribute("style", "width:50")
+            let image = document.createElement("img")
+            image.setAttribute("src", getImage(donneeTemp[indexJour+1].Temp))
+            image.setAttribute("class", "tailleCarteImage card-footer bg-light")
+
+            divImage.appendChild(image)
+            card.appendChild(divDay)
+            card.appendChild(divMax)
+            card.appendChild(divMin)
+            card.appendChild(divImage) 
+            parent.appendChild(card) 
+            console.log(donneeTemp[indexJour].DateDuJour)
+
+        }          
+        newChart(journeeGraph, moyGraph, minGraph, maxGraph)           
     });  
 }
+
+function newChart(journeeGraph, moyGraph, minGraph, maxGraph){
+    new Chart("myChart", {
+        type: "bar",
+        data: {
+          labels: journeeGraph,
+          datasets: [{
+            label: "Températures moyennes",
+            data: moyGraph,
+            backgroundColor: "gray",
+            
+            fill: false
+          },{
+            label: "Températures minimal",
+            data: minGraph,
+            backgroundColor: "blue",
+            fill: false
+          },{
+            label: "Températures maximal",
+            data: maxGraph,
+            backgroundColor: "red",
+            fill: false
+          }]
+        },
+        options: {
+            layout: {
+                padding: 10
+            },
+            
+            legend: {
+                display: true
+            }
+        }
+    });      
+
+}
+
 
