@@ -7,7 +7,7 @@ const nuage = 20;
 const tempTab = [{desc : "Froid, chance de neige",image : "../images/neige.png"},
     {desc : "Précipitaion Pluie", image :"../images/pluie.png"},
     { desc : "Nuageux", image :"../images/nuage.png" }, {desc : "Ensoleillé", image : "../images/soleil.png"}];
-// const mois =["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Aout","Septembre","Octobre","Novembre", "Décembre"]
+ const mois =["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Aout","Septembre","Octobre","Novembre", "Décembre"]
 
 //function fetch global + affichage des écrans
 function initialiserPage(nbrJour){
@@ -104,6 +104,24 @@ function getImage(temp) {
         return tempTab[3].image
     }
 }
+
+function emplirMois(){ 
+    //parent
+    let liste = document.getElementById("menuMois")
+    //recuperer la taille
+    let taille= liste.children.length
+    if(taille==0){
+        //enfant
+        for(let index=0;index<mois.length;index++){
+            let opt = document.createElement("option");
+            opt.textContent = mois[index];
+            liste.appendChild(opt);
+        }
+    }
+    var valueMois =liste.options[liste.selectedIndex].value;
+    return valueMois
+}
+
 
 // Recherche sequentiel de la BD pour trouvé la date du jour
 function rechercheIndexJour(tableTemp, tmpJour){
