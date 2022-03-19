@@ -24,7 +24,7 @@ function initialiserPage(nbrJour){
     });        
 }
 
-//Initialisation du haut de la fenetre (Temp journalier) sur toutes les pages
+//Initialisation du haut de la fenetre (Temperature journalière) sur toutes les pages
 function ajoutPrevisionJournaliere(donneeTemp) {
   
     var jour = document.getElementById("journalierHeader")
@@ -46,8 +46,7 @@ function ajoutPrevisionJournaliere(donneeTemp) {
     imageJour.setAttribute("src", getImage(donneeTemp[indexJour].Temp))             
 }
 
-
-// // Ajout des cartes de prévisions météo
+// Ajout des cartes de prévisions météo 3, 7 et 14 jours
 function ajoutCard(nbrJour, donneeTemp) {
   
     //Date du jour
@@ -59,36 +58,49 @@ function ajoutCard(nbrJour, donneeTemp) {
     // index du nombre d'itération
     let indexFin = indexJour + nbrJour + 1
 
+    let tailleCarte = "width: 100%"
+
     for (let index = indexJour+1; index <= indexFin; index++) {
         //référence de la carte modifié chaque ittération
         let card = tableCarte[index-indexJour-1]
-       
-        //ajouter date
-        let weekDay = FormatDateAffichage(donneeTemp[index].DateDuJour)
-        let divDay = document.createElement("div")
-        divDay.setAttribute("class", "h5 card-header bg-dark text-light text-center")
-        divDay.innerHTML = weekDay
-
-        // //ajouter Max Temperature
-        let divMax = document.createElement("div")
-        divMax.setAttribute("class", "h3 bg-warning text-danger text-center")
-        divMax.innerHTML = donneeTemp[index].MaxTemp
-        // //ajouter Minumum temperature
-        let divMin = document.createElement("div")
-        divMin.setAttribute("class", "h3 bg-info text-light text-center")
-        divMin.innerHTML = donneeTemp[index].MinTemp
-        // //ajouter Image
-        let divImage = document.createElement("div")
-        divImage.setAttribute("class", "card-footer bg-light")
-        divImage.setAttribute("style", "width:auto")
-        let image= document.createElement("img")
-         image.setAttribute("src", getImage(donneeTemp[index].Temp))
-        divImage.appendChild(image)
-        card.appendChild(divDay)
-        card.appendChild(divMax)
-        card.appendChild(divMin)
-        card.appendChild(divImage)   
+        
+        creerCarte(donneeTemp, index, card, tailleCarte)  
     }      
+}
+// Création des cartes pour ajout dans les fonctions ajoutCard et statistiqueMois
+function creerCarte(donneeTemp, indexJour, card, tailleCarte){
+    // ajouter date
+    let weekDay = FormatDateAffichage(donneeTemp[indexJour+1].DateDuJour)
+    let divDay = document.createElement("div")
+    divDay.setAttribute("class", "h6 card-header bg-dark text-light text-center")
+    divDay.setAttribute("style", tailleCarte) 
+    divDay.innerHTML = weekDay
+
+    // ajouter Max Temperature
+    let divMax = document.createElement("div")
+    divMax.setAttribute("class", "h6 bg-warning text-danger text-center")
+    divMax.setAttribute("style", tailleCarte)
+    divMax.innerHTML = donneeTemp[indexJour+1].MaxTemp
+    // ajouter Minumum temperature
+    let divMin = document.createElement("div")
+    divMin.setAttribute("class", "h6 bg-info text-light text-center")
+    divMin.setAttribute("style", tailleCarte)
+    divMin.innerHTML = donneeTemp[indexJour+1].MinTemp
+    // ajouter Image
+    let divImage = document.createElement("div")
+    divImage.setAttribute("style", "width:50")
+    let image = document.createElement("img")
+    image.setAttribute("src", getImage(donneeTemp[indexJour+1].Temp))
+    image.setAttribute("class", "card-footer bg-light")
+    image.setAttribute("style", tailleCarte)
+    
+    // Construction de la carte avant de la retourner
+    divImage.appendChild(image)
+    card.appendChild(divDay)
+    card.appendChild(divMax)
+    card.appendChild(divMin)
+    card.appendChild(divImage) 
+    return card
 }
 
 //Retour d'une image en fonction de la température recu en argument
@@ -123,13 +135,12 @@ function emplirMois(){
 }
 
 
-// Recherche sequentiel de la BD pour trouvé la date du jour
+// Recherche sequentiel de la BD pour trouvé l'index de la date du jour
 function rechercheIndexJour(tableTemp, tmpJour){
 
     var index = 0;
     var flag = false;
-    
-    //Formatage au format de la BD
+    //Formatage de la date en au même format que la BD
     tmpJour = FormatDateRecherche(tmpJour);     
     while (index < tableTemp.length && flag == false) {
         //Date de la BD à l'index
@@ -141,36 +152,36 @@ function rechercheIndexJour(tableTemp, tmpJour){
     }        
     return index    
 }
-//Retour de la date en format d'affichage du site
+// Retourbe la date en format d'affichage du site
 function FormatDateAffichage(tmpDate){
 
     return date = new Date(tmpDate).toLocaleString
         ('fr-CA', {  weekday: 'long', day: '2-digit' });
 }
-// Retour de la date en format court pour la recherche
+// Retourne la date en format court pour la recherche
 function FormatDateRecherche(tmpDate){
     
     return date = new Date(tmpDate).toLocaleString
         ('fr-CA', {dateStyle:'short'});
 }
-
-// Retour du nombre de jours dans le mois
+// Retourne le nombre de jours dans le mois
 function joursDansMois(mois){
+
     var annee = dateMois.getFullYear();
-        let joursMois = new Date(annee, mois+1, 0).getDate();
-        return joursMois
+    let joursMois = new Date(annee, mois+1, 0).getDate();
+    return joursMois
 }
 
 statistiqueMois(1)
 function statistiqueMois(mois){
+
     fetch('../data/temperatures_2022.json')
     .then(function (reponse) {
         return reponse.json();
     })
     .then(function (data) {
         var  donneeTemp = data.temperatures;
-        // moiss = document.getElementById("menuMois")
-        // console.log(moiss.value)
+        
         dateMois = new Date();
         //Modifier la date au mois selectionné
         dateMois.setMonth(mois);
@@ -191,49 +202,20 @@ function statistiqueMois(mois){
         let jour = indexDernierJour-indexDernierJour+1
         let parent = document.getElementById("calendrier")
         for (indexJour; indexJour < indexDernierJour; indexJour++) {
+            // Remplissage des tables pour affichage graph
             tableTempMois.push(donneeTemp[indexJour])
             journeeGraph.push(jour)
-            jour++
             minGraph.push(donneeTemp[indexJour].MinTemp)
             maxGraph.push(donneeTemp[indexJour].MaxTemp)
             moyGraph.push((donneeTemp[indexJour].MinTemp+donneeTemp[indexJour].MaxTemp)/2)
+            jour++
 
-            // Creation du calendrier
+            // Creation des cartes du calendrier
+            let tailleCarte = "width: 120px"
             let card = document.createElement("card")
             card.setAttribute("class", "tailleCarteCal")
-
-            // ajouter date
-            let weekDay = FormatDateAffichage(donneeTemp[indexJour+1].DateDuJour)
-            let divDay = document.createElement("div")
-            divDay.setAttribute("class", "h6 tailleCarteCal card-header bg-dark text-light text-center")
-            // divDay.setAttribute("style", "width:100px")
-            divDay.innerHTML = weekDay
-    
-            // ajouter Max Temperature
-            let divMax = document.createElement("div")
-            divMax.setAttribute("class", "h6 tailleCarteCal bg-warning text-danger text-center")
-            // divMax.setAttribute("style", "width:100px")
-            divMax.innerHTML = donneeTemp[indexJour+1].MaxTemp
-            // ajouter Minumum temperature
-            let divMin = document.createElement("div")
-            divMin.setAttribute("class", "h6 tailleCarteCal bg-info text-light text-center")
-            // divMin.setAttribute("style", "width:100px")
-            divMin.innerHTML = donneeTemp[indexJour+1].MinTemp
-            // ajouter Image
-            let divImage = document.createElement("div")
-            // divImage.setAttribute("style", "width:50")
-            let image = document.createElement("img")
-            image.setAttribute("src", getImage(donneeTemp[indexJour+1].Temp))
-            image.setAttribute("class", "tailleCarteImage card-footer bg-light")
-
-            divImage.appendChild(image)
-            card.appendChild(divDay)
-            card.appendChild(divMax)
-            card.appendChild(divMin)
-            card.appendChild(divImage) 
-            parent.appendChild(card) 
-            console.log(donneeTemp[indexJour].DateDuJour)
-
+             
+            parent.appendChild(creerCarte(donneeTemp, indexJour, card, tailleCarte)) 
         }          
         newChart(journeeGraph, moyGraph, minGraph, maxGraph)           
     });  
