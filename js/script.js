@@ -23,7 +23,6 @@ function initialiserPage(nbrJour){
         }        
     });        
 }
-
 //Initialisation du haut de la fenetre (Temperature journalière) sur toutes les pages
 function ajoutPrevisionJournaliere(donneeTemp) {
   
