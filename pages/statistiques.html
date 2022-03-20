@@ -60,7 +60,7 @@
     </nav>
 </header>
 
-<body class="bg-secondary" onload="initialiserPage(0)">
+<body class="bg-secondary" onload="initialiserPage(0), emplirMois(),statistiqueMois(-1)">
     <!-- Prévision journalière -->
     <div class="container-fluid">
         <div class="row">
@@ -104,29 +104,15 @@
                     <div class="bg-info col-12">
                         <ul class="nav">
                             <a class="navbar-brand" href="#">
-                                <h1 id="previsionMois" class="text-primary">Statistiques du mois : choisir un mois à afficher</h1>
+                                <h1 id="previsionMois" class="text-primary">Statistiques du mois : choisir un mois à
+                                    afficher</h1>
                             </a>
                             <li class="nav-item dropdown ml-md-auto">
-                                <div class="dropdown">
-                                    <button type="button" class="btn btn-default dropdown-toggle text-light bg-primary"
-                                        data-toggle="dropdown" id="menuMois">
-                                        Choisir : <span class="selection text-light">Mois</span><span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu" >
-                                       <a class="dropdown-item" href="#" onclick="statistiqueMois(0)"value="0">Janvier</a></li>
-                                       <a class="dropdown-item" href="#" onclick="statistiqueMois(1)"value="1">Fevrier</a></li>
-                                        <a class="dropdown-item" href="#" value="2">Mars</a></li>
-                                        <a class="dropdown-item" href="#" value="3">Avril</a></li>
-                                        <a class="dropdown-item" href="#" value="4">Mai</a></li>
-                                        <a class="dropdown-item" href="#" value="5">Juin</a></li>
-                                        <a class="dropdown-item" href="#" value="6">Juillet</a></li>
-                                        <li><a class="dropdown-item" href="#" value="7">Aout</a></li>
-                                        <li><a class="dropdown-item" href="#" value="8">Septembre</a></li>
-                                        <li><a class="dropdown-item" href="#" value="9">Octobre</a></li>
-                                        <li><a class="dropdown-item" href="#" value="10">Novembre</a></li>
-                                        <li><a class="dropdown-item" href="#" value="11">Décembre</a></li>
-                                    </ul>
-                                </div>
+
+                                <h4 class="text-light">Choisir votre : <select class="bg-warning text-danger"
+                                        id="menuMois" onchange="statistiqueMois(emplirMois())"></select></h4>
+
+
                             </li>
                         </ul>
                     </div>
@@ -137,8 +123,9 @@
             <div class="row col-8" id="calendrier"></div>
         </div>
         <br>
-        <canvas id="myChart" class="map bg-light col-8 continer-fluid"></canvas>
-
+        <div id="chartParent">
+            <canvas id="myChart" class="map bg-light col-8 continer-fluid"></canvas>
+        </div>
     </div>
 
 
@@ -155,10 +142,10 @@
 
 
 
-    <script type="text/javascript">$(".dropdown-menu li a").click(function(){
-        $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
-        $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
-      });</script>
+    <script type="text/javascript">$(".dropdown-menu li a").click(function () {
+            $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+            $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
+        });</script>
 </body>
 
 </html>
