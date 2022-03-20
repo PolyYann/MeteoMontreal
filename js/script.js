@@ -235,11 +235,49 @@ function statistiqueMois(mois) {
 
                 parent.appendChild(creerCarte(donneeTemp, indexJour, card, tailleCarte))
             }
-            
-            
-            
+            trouverMax(maxGraph)
+            trouverMin(minGraph)
+            trouverMoy(moyGraph)
             newChart(journeeGraph, moyGraph, minGraph, maxGraph)
         });
+}
+function trouverMax(tableauMax){
+    let maximum =0;
+    for(let i =0;i<tableauMax.length;i++){
+        if(i==0){
+            maximum = tableauMax[i]
+        }else{
+            if(tableauMax[i]> maximum){
+                maximum= tableauMax[i]
+            }
+        }
+    }
+    let affMax =document.getElementById("maximum")
+    affMax.innerHTML= maximum
+}
+function trouverMin(tableauMin){
+    let minimum =0;
+    for(let i =0;i<tableauMin.length;i++){
+        if(i==0){
+            minimum = tableauMin[i]
+        }else{
+            if(tableauMin[i]< minimum){
+                minimum= tableauMin[i]
+            }
+        }
+    }
+    let affMin = document.getElementById("minimum")
+    affMin.innerHTML = minimum
+}
+
+function trouverMoy(tableauMoy){
+    let somme =0
+    for(let i =0;i<tableauMoy.length;i++){
+        somme += tableauMoy[i]
+    }
+    let moyenne = somme/tableauMoy.length
+    let affMoy = document.getElementById("moyenne")
+    affMoy.innerHTML = moyenne
 }
 
 function newChart(journeeGraph, moyGraph, minGraph, maxGraph) {
