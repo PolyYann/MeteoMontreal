@@ -275,7 +275,8 @@ function trouverMoy(tableauMoy){
     for(let i =0;i<tableauMoy.length;i++){
         somme += tableauMoy[i]
     }
-    let moyenne = somme/tableauMoy.length
+   
+    let moyenne = Math.round((somme/tableauMoy.length)*10)/10
     let affMoy = document.getElementById("moyenne")
     affMoy.innerHTML = moyenne
 }
