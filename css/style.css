@@ -27,6 +27,13 @@ a:active {
     height: 50%;
   }
 
+  .imageDeFont{
+     background-image: url(../images/Full-Frame-24-824x554.jpg);
+     background-repeat: no-repeat;
+     background-size: 100%;
+     background-blend-mode: multiply;
+  }
+
 
   
 
