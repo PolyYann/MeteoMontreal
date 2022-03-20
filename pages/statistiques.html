@@ -103,6 +103,9 @@
                 <div class="row">
                     <div class="bg-info col-12">
                         <ul class="nav">
+                            <a class="navbar-brand" href="#">
+                                <h1 id="previsionMois" class="text-primary">Statistiques du mois : choisir un mois à afficher</h1>
+                            </a>
                             <li class="nav-item dropdown ml-md-auto">
                                 <div class="dropdown">
                                     <button type="button" class="btn btn-default dropdown-toggle text-light bg-primary"
@@ -110,8 +113,8 @@
                                         Choisir : <span class="selection text-light">Mois</span><span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu" >
-                                       <a class="dropdown-item" href="#" value="0">Janvier</a></li>
-                                       <a class="dropdown-item" href="#" value="1">Fevrier</a></li>
+                                       <a class="dropdown-item" href="#" onclick="statistiqueMois(0)"value="0">Janvier</a></li>
+                                       <a class="dropdown-item" href="#" onclick="statistiqueMois(1)"value="1">Fevrier</a></li>
                                         <a class="dropdown-item" href="#" value="2">Mars</a></li>
                                         <a class="dropdown-item" href="#" value="3">Avril</a></li>
                                         <a class="dropdown-item" href="#" value="4">Mai</a></li>
@@ -131,7 +134,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="row col-8" id="calendrier" ></div>
+            <div class="row col-8" id="calendrier"></div>
         </div>
         <br>
         <canvas id="myChart" class="map bg-light col-8 continer-fluid"></canvas>

@@ -37,7 +37,7 @@ function ajoutPrevisionJournaliere(donneeTemp) {
     // index DB de la journee courante
     let indexJour = rechercheIndexJour(donneeTemp, tmpJour)
     //formatage affichage de la journée
-    let weekDay = FormatDateAffichage(donneeTemp[indexJour].DateDuJour)
+    let weekDay = formatDateAffichage(donneeTemp[indexJour].DateDuJour)
     //Mise à jour des données journalière
     jour.innerText = weekDay
     temperature.innerHTML = ("Maintenant: " +donneeTemp[indexJour].Temp)
@@ -67,10 +67,11 @@ function ajoutCard(nbrJour, donneeTemp) {
         creerCarte(donneeTemp, index, card, tailleCarte)  
     }      
 }
+
 // Création des cartes pour ajout dans les fonctions ajoutCard et statistiqueMois
 function creerCarte(donneeTemp, indexJour, card, tailleCarte){
     // ajouter date
-    let weekDay = FormatDateAffichage(donneeTemp[indexJour+1].DateDuJour)
+    let weekDay = formatDateAffichage(donneeTemp[indexJour].DateDuJour)
     let divDay = document.createElement("div")
     divDay.setAttribute("class", "h6 card-header bg-dark text-light text-center")
     divDay.setAttribute("style", tailleCarte) 
@@ -141,7 +142,7 @@ function rechercheIndexJour(tableTemp, tmpJour){
     var index = 0;
     var flag = false;
     //Formatage de la date en au même format que la BD
-    tmpJour = FormatDateRecherche(tmpJour);     
+    tmpJour = formatDateRecherche(tmpJour);     
     while (index < tableTemp.length && flag == false) {
         //Date de la BD à l'index
         tmpDate = (tableTemp[index].DateDuJour);
@@ -153,13 +154,13 @@ function rechercheIndexJour(tableTemp, tmpJour){
     return index    
 }
 // Retourbe la date en format d'affichage du site
-function FormatDateAffichage(tmpDate){
+function formatDateAffichage(tmpDate){
 
     return date = new Date(tmpDate).toLocaleString
-        ('fr-CA', {  weekday: 'long', day: '2-digit' });
+        ('fr-CA', {weekday: 'long', day: '2-digit'});
 }
 // Retourne la date en format court pour la recherche
-function FormatDateRecherche(tmpDate){
+function formatDateRecherche(tmpDate){
     
     return date = new Date(tmpDate).toLocaleString
         ('fr-CA', {dateStyle:'short'});
@@ -172,7 +173,13 @@ function joursDansMois(mois){
     return joursMois
 }
 
-statistiqueMois(1)
+// Retourne la date en format mois(text), année
+function formatMoisCalendrier(dateMois){
+    let tmp = new Date(dateMois).toLocaleString
+    ('fr-CA', {month: 'long', year: 'numeric'});
+    return tmp
+}
+
 function statistiqueMois(mois){
 
     fetch('../data/temperatures_2022.json')
@@ -187,23 +194,30 @@ function statistiqueMois(mois){
         dateMois.setMonth(mois);
         //Remettre la date au premier jour du mois
         dateMois.setDate(1);
+        
+        // Afficher le mois selectionné
+        let enteteMois = document.getElementById("previsionMois")
+        enteteMois.innerHTML = ("Statistiques du mois de " + formatMoisCalendrier(dateMois))
 
         //Rechercher l'index du premier jour du mois
-        let indexJour = rechercheIndexJour(donneeTemp, dateMois)-1
+        let indexJour = rechercheIndexJour(donneeTemp, dateMois)
 
         //Nombre de jours dans 1 mois
         let joursMois = joursDansMois(mois)
-        let tableTempMois = []
         let journeeGraph = []
         let moyGraph = []
         let minGraph = []
         let maxGraph = []
         let indexDernierJour = indexJour+joursMois
         let jour = indexDernierJour-indexDernierJour+1
+        //Élément parent du calendrier du mois
         let parent = document.getElementById("calendrier")
+        //Vider le calendrier du mois
+        while(parent.hasChildNodes()){
+            parent.removeChild(parent.firstChild)
+        }
         for (indexJour; indexJour < indexDernierJour; indexJour++) {
             // Remplissage des tables pour affichage graph
-            tableTempMois.push(donneeTemp[indexJour])
             journeeGraph.push(jour)
             minGraph.push(donneeTemp[indexJour].MinTemp)
             maxGraph.push(donneeTemp[indexJour].MaxTemp)
@@ -215,7 +229,7 @@ function statistiqueMois(mois){
             let card = document.createElement("card")
             card.setAttribute("class", "tailleCarteCal")
              
-            parent.appendChild(creerCarte(donneeTemp, indexJour, card, tailleCarte)) 
+           parent.appendChild(creerCarte(donneeTemp, indexJour, card, tailleCarte)) 
         }          
         newChart(journeeGraph, moyGraph, minGraph, maxGraph)           
     });  
