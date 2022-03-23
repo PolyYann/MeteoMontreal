@@ -27,7 +27,8 @@ a:active {
 
   .imageDeFont{
      background-image: url(../images/Full-Frame-24-824x554.jpg);
-     background-repeat: no-repeat;
+     
+     background-attachment: fixed;
      background-size: 100%;
      opacity: 0.9;
   }
