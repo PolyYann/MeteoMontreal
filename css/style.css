@@ -20,9 +20,7 @@ a:active {
   .tailleCarteCal{
     width: 120px;
   }
-  .tailleCarteImage{
-    width: 120px;
-  }
+
   .tailleStatisticMois{
     height: 50%;
   }
@@ -31,7 +29,7 @@ a:active {
      background-image: url(../images/Full-Frame-24-824x554.jpg);
      background-repeat: no-repeat;
      background-size: 100%;
-     background-blend-mode: multiply;
+     opacity: 0.9;
   }
 
 

@@ -133,9 +133,7 @@ function emplirMois() {
     var valueMois = liste.options[liste.selectedIndex].index - 1;
     console.log(valueMois)
     return valueMois
-
 }
-
 
 // Recherche sequentiel de la BD pour trouvé l'index de la date du jour
 function rechercheIndexJour(tableTemp, tmpJour) {
@@ -208,12 +206,10 @@ function statistiqueMois(mois) {
 
             //Nombre de jours dans 1 mois
             let joursMois = joursDansMois(mois)
-            let journeeGraph = []
             let moyGraph = []
             let minGraph = []
             let maxGraph = []
             let indexDernierJour = indexJour + joursMois
-            let jour = indexDernierJour - indexDernierJour + 1
             //Élément parent du calendrier du mois
             let parent = document.getElementById("calendrier")
             //Vider le calendrier du mois
@@ -222,11 +218,9 @@ function statistiqueMois(mois) {
             }
             for (indexJour; indexJour < indexDernierJour; indexJour++) {
                 // Remplissage des tables pour affichage graph
-                journeeGraph.push(jour)
                 minGraph.push(donneeTemp[indexJour].MinTemp)
                 maxGraph.push(donneeTemp[indexJour].MaxTemp)
                 moyGraph.push((donneeTemp[indexJour].MinTemp + donneeTemp[indexJour].MaxTemp) / 2)
-                jour++
 
                 // Creation des cartes du calendrier
                 let tailleCarte = "width: 120px"
@@ -238,7 +232,6 @@ function statistiqueMois(mois) {
             trouverMax(maxGraph)
             trouverMin(minGraph)
             trouverMoy(moyGraph)
-            newChart(journeeGraph, moyGraph, minGraph, maxGraph)
         });
 }
 function trouverMax(tableauMax){
@@ -279,43 +272,6 @@ function trouverMoy(tableauMoy){
     let moyenne = (somme/tableauMoy.length).toFixed(1)
     let affMoy = document.getElementById("moyenne")
     affMoy.innerHTML = moyenne
-}
-
-function newChart(journeeGraph, moyGraph, minGraph, maxGraph) {
-    
-    new Chart("myChart", {
-        type: "bar",
-        data: {
-            labels: journeeGraph,
-            datasets: [{
-                label: "Températures moyennes",
-                data: moyGraph,
-                backgroundColor: "gray",
-
-                fill: false
-            }, {
-                label: "Températures minimal",
-                data: minGraph,
-                backgroundColor: "blue",
-                fill: false
-            }, {
-                label: "Températures maximal",
-                data: maxGraph,
-                backgroundColor: "red",
-                fill: false
-            }]
-        },
-        options: {
-            layout: {
-                padding: 10
-            },animation: false,
-
-            legend: {
-                display: true
-            }
-        }
-    });
-
 }
 
 
